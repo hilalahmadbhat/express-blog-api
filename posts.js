@@ -28,7 +28,11 @@ postRoutes.get("/",(req,res) => {
 
 postRoutes.get("/:postid",(req,res)=>{
     const {postid} = req.params
+    
     Post.findById(postid,(err,data)=>{
+        if(err){
+            res.json(err)
+        }
         res.json(data)
     })
     
@@ -38,11 +42,13 @@ postRoutes.get("/:postid",(req,res)=>{
 //     res.json("create new post")
 // })
 
-// postRoutes.put("/:postid",(req,res)=>{
-//     //res.json("update post")
-//     const {id} = req.params
-//     Post.findByIdAndUpdate()
-// })
+postRoutes.put("/:postid",(req,res)=>{
+    const {postid} = req.params
+    //res.json(req.body)
+    Post.findByIdAndUpdate(postid,req.body,(err,data)=>{
+        res.json(data)
+    })
+})
 
 // postRoutes.delete("/:postid",(req,res)=>{
 //     res.json("delete post")
